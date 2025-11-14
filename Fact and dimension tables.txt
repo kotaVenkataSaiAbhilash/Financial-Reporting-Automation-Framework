@@ -1,0 +1,60 @@
+                                                                            --- DIMENSION TABLES ---
+
+
+-- Company Dimension Table
+
+CREATE TABLE Dim_Company (
+    Company_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Company_Name VARCHAR(100) NOT NULL
+);
+
+
+--Time Dimension Table
+
+CREATE TABLE Dim_Time (
+    Year_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Year INT NOT NULL
+);
+
+
+--Category Dimension Table
+
+CREATE TABLE Dim_Category (
+    Category_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Category_Name VARCHAR(100) NOT NULL
+);
+
+
+                                                                              --- FACT TABLE ---
+
+--Financial Performance Fact Table
+
+CREATE TABLE Fact_FinancialPerformance (
+    Fact_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Company_ID INT,
+    Year_ID INT,
+    Category_ID INT,
+    Market_Cap_B_USD DECIMAL(15,2),
+    Revenue DECIMAL(15,2),
+    Gross_Profit DECIMAL(15,2),
+    Net_Income DECIMAL(15,2),
+    Earnings_Per_Share DECIMAL(10,2),
+    EBITDA DECIMAL(15,2),
+    Shareholder_Equity DECIMAL(15,2),
+    CashFlow_Operating DECIMAL(15,2),
+    CashFlow_Investing DECIMAL(15,2),
+    CashFlow_Financing DECIMAL(15,2),
+    Current_Ratio DECIMAL(10,4),
+    Debt_Equity_Ratio DECIMAL(10,4),
+    ROE DECIMAL(10,4),
+    ROA DECIMAL(10,4),
+    ROI DECIMAL(10,4),
+    Net_Profit_Margin DECIMAL(10,4),
+    Free_Cash_Flow_per_Share DECIMAL(10,4),
+    Return_on_Tangible_Equity DECIMAL(10,4),
+    Number_of_Employees INT,
+    Inflation_Rate_US DECIMAL(10,4),
+    FOREIGN KEY (Company_ID) REFERENCES Dim_Company(Company_ID),
+    FOREIGN KEY (Year_ID) REFERENCES Dim_Time(Year_ID),
+    FOREIGN KEY (Category_ID) REFERENCES Dim_Category(Category_ID)
+);
